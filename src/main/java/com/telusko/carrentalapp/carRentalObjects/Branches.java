@@ -8,8 +8,6 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "Branches")
-@Getter
-@Setter
 public class Branches {
     @Id
     private Long branchId;
@@ -26,6 +24,46 @@ public class Branches {
         this.branchName = branchName;
         this.location = location;
         this.phoneNumber = phoneNumber;
+        this.email = email;
+    }
+
+    public Long getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(Long branchId) {
+        this.branchId = branchId;
+    }
+
+    public String getBranchName() {
+        return branchName;
+    }
+
+    public void setBranchName(String branchName) {
+        this.branchName = branchName;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
         this.email = email;
     }
 }
