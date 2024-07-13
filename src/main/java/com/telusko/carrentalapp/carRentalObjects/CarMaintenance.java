@@ -7,8 +7,6 @@ import java.util.Date;
 
 @Entity
 @Table(name = "Car_Maintenance")
-@Getter
-@Setter
 public class CarMaintenance {
 
     @Id
@@ -35,5 +33,61 @@ public class CarMaintenance {
         this.description = description;
         this.cost = cost;
         this.status = status;
+    }
+
+    public Long getMaintenanceId() {
+        return maintenanceId;
+    }
+
+    public void setMaintenanceId(Long maintenanceId) {
+        this.maintenanceId = maintenanceId;
+    }
+
+    public Long getCarId() {
+        return carId;
+    }
+
+    public void setCarId(Long carId) {
+        this.carId = carId;
+    }
+
+    public Date getMaintenanceDate() {
+        return maintenanceDate;
+    }
+
+    public void setMaintenanceDate(Date maintenanceDate) {
+        this.maintenanceDate = maintenanceDate;
+    }
+
+    public Double getCost() {
+        return cost;
+    }
+
+    public void setCost(Double cost) {
+        this.cost = cost;
+    }
+
+    public Cars getCarInfo() {
+        return carInfo;
+    }
+
+    public void setCarInfo(Cars carInfo) {
+        this.carInfo = carInfo;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

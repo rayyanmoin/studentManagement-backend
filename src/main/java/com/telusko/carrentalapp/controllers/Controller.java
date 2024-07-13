@@ -1,13 +1,11 @@
 package com.telusko.carrentalapp.controllers;
 
 
-import com.telusko.carrentalapp.carRentalObjects.Branches;
-import com.telusko.carrentalapp.carRentalObjects.Cars;
-import com.telusko.carrentalapp.carRentalObjects.Customers;
+import com.telusko.carrentalapp.carRentalObjects.*;
+import com.telusko.carrentalapp.dto.CarMaintenanceListDto;
 import com.telusko.carrentalapp.dto.CarsListDto;
-import com.telusko.carrentalapp.repositories.BranchRepository;
-import com.telusko.carrentalapp.repositories.CarsRepository;
-import com.telusko.carrentalapp.repositories.CustomersRepository;
+import com.telusko.carrentalapp.dto.ReservationListDto;
+import com.telusko.carrentalapp.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +22,13 @@ public class Controller {
 private CustomersRepository customersRepository;
 
     @Autowired
+    private ReservationRepository reservationRepository;
+
+    @Autowired
     private BranchRepository branchRepository;
+
+    @Autowired
+    private CarMaintenanceRepository carMaintenanceRepository;
 
     @Autowired
     private CarsRepository carsRepository;
@@ -40,6 +44,51 @@ private CustomersRepository customersRepository;
         List<Branches> branches = branchRepository.findAll();
         return branches;
     }
+
+    @GetMapping("/reservation/getList")
+    public List<ReservationListDto> getReservationList(){
+        List<Reservation> reservations = reservationRepository.findAll();
+        List<ReservationListDto> reservationList = new ArrayList<>();
+        for(Reservation reservation : reservations){
+            ReservationListDto reservationListDto = new ReservationListDto();
+            reservationListDto.setReservationId(reservation.getReservationId());
+            reservationListDto.setStartDate(reservation.getStartDate());
+            reservationListDto.setEndDate(reservation.getEndDate());
+            reservationListDto.setTotalCost(reservation.getTotalCost());
+            reservationListDto.setStatus(reservation.getStatus());
+            reservationListDto.setCreatedAt(reservation.getCreatedAt());
+            reservationListDto.setBranchName(reservation.getBranchInfo().getBranchName());
+            reservationListDto.setMake(reservation.getCarInfo().getMake());
+            reservationListDto.setModel(reservation.getCarInfo().getModel());
+            reservationListDto.setYear(reservation.getCarInfo().getYear());
+            reservationListDto.setCnic(reservation.getCustomersInfo().getCnic());
+            reservationListDto.setFullName(reservation.getCustomersInfo().getFullName());
+            reservationList.add(reservationListDto);
+        }
+        return reservationList;
+    }
+
+    @GetMapping("/carMaintenance/getList")
+    public List<CarMaintenanceListDto> getCarMaintenanceList() {
+        List<CarMaintenance> carMaintenances = carMaintenanceRepository.findAll();
+        List<CarMaintenanceListDto> carsMaintenanceList = new ArrayList<>();
+        for(CarMaintenance carMaintenance: carMaintenances){
+
+            CarMaintenanceListDto carMaintenanceListDto = new CarMaintenanceListDto();
+            carMaintenanceListDto.setMaintenanceId(carMaintenance.getMaintenanceId());
+            carMaintenanceListDto.setMaintenanceDate(carMaintenance.getMaintenanceDate());
+            carMaintenanceListDto.setDescription(carMaintenance.getDescription());
+            carMaintenanceListDto.setCost((carMaintenance.getCost()));
+            carMaintenanceListDto.setStatus(carMaintenance.getStatus());
+            carMaintenanceListDto.setMake(carMaintenance.getCarInfo().getMake());
+            carMaintenanceListDto.setModel(carMaintenance.getCarInfo().getModel());
+            carMaintenanceListDto.setYear(carMaintenance.getCarInfo().getYear());
+            carsMaintenanceList.add(carMaintenanceListDto);
+        }
+        return carsMaintenanceList;
+    }
+
+
 
     @GetMapping("/cars/getList")
     public List<CarsListDto> getCarsList() {

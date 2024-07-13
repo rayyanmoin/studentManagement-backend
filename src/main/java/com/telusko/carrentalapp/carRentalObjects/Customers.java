@@ -9,8 +9,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "Customers")
-@Getter
-@Setter
+
 public class Customers {
 
  @Id
@@ -33,6 +32,62 @@ public class Customers {
   this.email = email;
   this.phoneNumber = phoneNumber;
   this.address = address;
+  this.createdAt = createdAt;
+ }
+
+ public Long getCustomerId() {
+  return customerId;
+ }
+
+ public void setCustomerId(Long customerId) {
+  this.customerId = customerId;
+ }
+
+ public String getCnic() {
+  return cnic;
+ }
+
+ public void setCnic(String cnic) {
+  this.cnic = cnic;
+ }
+
+ public String getEmail() {
+  return email;
+ }
+
+ public void setEmail(String email) {
+  this.email = email;
+ }
+
+ public String getFullName() {
+  return fullName;
+ }
+
+ public void setFullName(String fullName) {
+  this.fullName = fullName;
+ }
+
+ public String getPhoneNumber() {
+  return phoneNumber;
+ }
+
+ public void setPhoneNumber(String phoneNumber) {
+  this.phoneNumber = phoneNumber;
+ }
+
+ public String getAddress() {
+  return address;
+ }
+
+ public void setAddress(String address) {
+  this.address = address;
+ }
+
+ public Date getCreatedAt() {
+  return createdAt;
+ }
+
+ public void setCreatedAt(Date createdAt) {
   this.createdAt = createdAt;
  }
 }
