@@ -9,6 +9,7 @@ import lombok.Setter;
 @Table(name = "Cars")
 public class Cars {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long carId;
 
     @Column(name="branch_id")

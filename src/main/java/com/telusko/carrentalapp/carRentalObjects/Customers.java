@@ -13,6 +13,7 @@ import java.util.Date;
 public class Customers {
 
  @Id
+ @GeneratedValue(strategy = GenerationType.IDENTITY)
  private Long customerId;
  private String cnic;
  private String fullName;

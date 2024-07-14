@@ -10,6 +10,7 @@ import java.util.Date;
 public class CarMaintenance {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long maintenanceId;
     @Column(name="car_id")
     private Long carId;

@@ -2,9 +2,7 @@ package com.telusko.carrentalapp.controllers;
 
 
 import com.telusko.carrentalapp.carRentalObjects.*;
-import com.telusko.carrentalapp.dto.CarMaintenanceListDto;
-import com.telusko.carrentalapp.dto.CarsListDto;
-import com.telusko.carrentalapp.dto.ReservationListDto;
+import com.telusko.carrentalapp.dto.*;
 import com.telusko.carrentalapp.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -108,6 +106,72 @@ private CustomersRepository customersRepository;
             carsList.add(carsListDto);
         }
         return carsList;
+    }
+
+    @PostMapping("/customer/add")
+    public String addCustomer(@RequestBody CustomerAddDto customerAddDto){
+        Customers customers = new Customers();
+        customers.setCnic(customerAddDto.getCnic());
+        customers.setFullName(customerAddDto.getFullName());
+        customers.setEmail(customerAddDto.getEmail());
+        customers.setPhoneNumber(customerAddDto.getPhoneNumber());
+        customers.setAddress(customerAddDto.getAddress());
+        customers.setCreatedAt(customerAddDto.getCreatedAt());
+        customersRepository.save(customers);
+        return "Customer added Successfully";
+    }
+
+    @PostMapping("/cars/add")
+    public String addCar(@RequestBody CarsAddDto carsAddDto){
+        Cars cars = new Cars();
+        cars.setBranchId(carsAddDto.getBranchId());
+        cars.setMake(carsAddDto.getMake());
+        cars.setModel(carsAddDto.getModel());
+        cars.setYear(carsAddDto.getYear());
+        cars.setColor(carsAddDto.getColor());
+        cars.setLicensePlate(carsAddDto.getLicensePlate());
+        cars.setStatus(carsAddDto.getStatus());
+        cars.setDailyRentalRate(carsAddDto.getDailyRentalRate());
+        carsRepository.save(cars);
+        return "Car Add successfully";
+    }
+
+    @PostMapping("/carMaintenance/add")
+    public String addCarMaintenance(@RequestBody CarMaintenanceAddDto carMaintenanceAddDto){
+        CarMaintenance carMaintenance = new CarMaintenance();
+        carMaintenance.setCarId(carMaintenanceAddDto.getCarId());
+        carMaintenance.setMaintenanceDate(carMaintenanceAddDto.getMaintenanceDate());
+        carMaintenance.setDescription(carMaintenanceAddDto.getDescription());
+        carMaintenance.setCost(carMaintenanceAddDto.getCost());
+        carMaintenance.setStatus(carMaintenanceAddDto.getStatus());
+        carMaintenanceRepository.save(carMaintenance);
+        return "CarMaintenance Add Successfully";
+    }
+
+    @PostMapping("/reservation/add")
+    public String addReservation(@RequestBody ReservationAddDto reservationAddDto){
+        Reservation reservation = new Reservation();
+        reservation.setBranchId(reservationAddDto.getBranchId());
+        reservation.setCustomerId(reservationAddDto.getCustomerId());
+        reservation.setCarId(reservationAddDto.getCarId());
+        reservation.setStartDate(reservationAddDto.getStartDate());
+        reservation.setEndDate(reservationAddDto.getEndDate());
+        reservation.setTotalCost(reservationAddDto.getTotalCost());
+        reservation.setStatus(reservationAddDto.getStatus());
+        reservation.setCreatedAt(reservationAddDto.getCreatedAt());
+        reservationRepository.save(reservation);
+        return "Reservation Added Successfully";
+    }
+
+    @PostMapping("/branches/add")
+    public String addBranches(@RequestBody BranchAddDto branchAddDto){
+        Branches branches = new Branches();
+        branches.setBranchName(branchAddDto.getBranchName());
+        branches.setLocation(branchAddDto.getLocation());
+        branches.setPhoneNumber(branchAddDto.getPhoneNumber());
+        branches.setEmail(branchAddDto.getEmail());
+        branchRepository.save(branches);
+        return "Branch Added Successfully.";
     }
 
 }

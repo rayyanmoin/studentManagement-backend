@@ -1,38 +1,11 @@
-package com.telusko.carrentalapp.carRentalObjects;
+package com.telusko.carrentalapp.dto;
 
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+public class BranchAddDto {
 
-@Entity
-@Table(name = "Branches")
-public class Branches {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long branchId;
     private String branchName;
     private String location;
     private String phoneNumber;
     private String email;
-
-    public Branches() {
-    }
-
-    public Branches(Long branchId, String branchName, String location, String phoneNumber, String email) {
-        this.branchId = branchId;
-        this.branchName = branchName;
-        this.location = location;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-    }
-
-    public Long getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(Long branchId) {
-        this.branchId = branchId;
-    }
 
     public String getBranchName() {
         return branchName;
@@ -65,4 +38,5 @@ public class Branches {
     public void setEmail(String email) {
         this.email = email;
     }
+
 }
