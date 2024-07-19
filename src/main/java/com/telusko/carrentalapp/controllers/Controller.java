@@ -43,6 +43,19 @@ private CustomersRepository customersRepository;
         return branches;
     }
 
+    @GetMapping("/branchDropdown/getList")
+    public List<BranchDropdownDto> getBranchDropdown() {
+        List<Branches> branches = branchRepository.findAll();
+        List<BranchDropdownDto> branchDropList = new ArrayList<>();
+        for(Branches branch : branches){
+            BranchDropdownDto branchDropdownDto = new BranchDropdownDto();
+            branchDropdownDto.setBranchId(branch.getBranchId());
+            branchDropdownDto.setBranchName(branch.getBranchName());
+            branchDropList.add(branchDropdownDto);
+        }
+        return branchDropList;
+    }
+
     @GetMapping("/reservation/getList")
     public List<ReservationListDto> getReservationList(){
         List<Reservation> reservations = reservationRepository.findAll();
