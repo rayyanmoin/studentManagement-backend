@@ -43,6 +43,33 @@ private CustomersRepository customersRepository;
         return branches;
     }
 
+    @GetMapping("/carDropdown/getList")
+    public List<CarDropDownDto> getCarDropdown(){
+        List<Cars> cars = carsRepository.findAll();
+        List<CarDropDownDto> carDropList = new ArrayList<>();
+        for(Cars car : cars){
+            CarDropDownDto carDropDownDto = new CarDropDownDto();
+            carDropDownDto.setCarId(car.getCarId());
+            carDropDownDto.setCarName(car.getMake() + " " + car.getModel() + " " + car.getYear());
+            carDropDownDto.setDailyRentalRate(car.getDailyRentalRate());
+            carDropList.add(carDropDownDto);
+        }
+        return carDropList;
+    }
+
+    @GetMapping("/customerDropdown/getList")
+    public List<CustomerDropdownDto> getCustomerDropdown(){
+        List<Customers> customers = customersRepository.findAll();
+        List<CustomerDropdownDto> customerDropList = new ArrayList<>();
+        for(Customers customer: customers){
+            CustomerDropdownDto carDropDownDto = new CustomerDropdownDto();
+            carDropDownDto.setCustomerId(customer.getCustomerId());
+            carDropDownDto.setFullName(customer.getFullName());
+            customerDropList.add(carDropDownDto);
+        }
+        return customerDropList;
+    }
+
     @GetMapping("/branchDropdown/getList")
     public List<BranchDropdownDto> getBranchDropdown() {
         List<Branches> branches = branchRepository.findAll();
