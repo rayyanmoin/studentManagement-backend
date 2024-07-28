@@ -20,6 +20,10 @@ public class Controller {
 private CustomersRepository customersRepository;
 
     @Autowired
+    private EmployeeRepository employeeRepository ;
+
+
+    @Autowired
     private ReservationRepository reservationRepository;
 
     @Autowired
@@ -55,6 +59,24 @@ private CustomersRepository customersRepository;
             carDropList.add(carDropDownDto);
         }
         return carDropList;
+    }
+    @GetMapping("/employee/getList")
+    public List<EmployeeListDto> getEmployeeListDto() {
+        List<Employee> employees = employeeRepository.findAll();
+        List<EmployeeListDto> employeeList = new ArrayList<>();
+        for (Employee employee : employees){
+            EmployeeListDto employeeListDto = new EmployeeListDto();
+            employeeListDto.setEmployeeId(employee.getEmployeeId());
+            employeeListDto.setName(employee.getName());
+            employeeListDto.setProfession(employee.getProfession());
+            employeeListDto.setPhoneNumber(employee.getPhoneNumber());
+            employeeListDto.setAddress(employee.getAddress());
+            employeeListDto.setBranchName(employee.getBranchInfo().getBranchName());
+
+
+            employeeList.add(employeeListDto);
+        }
+        return employeeList;
     }
 
     @GetMapping("/customerDropdown/getList")
