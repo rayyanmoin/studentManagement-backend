@@ -24,6 +24,9 @@ private CustomersRepository customersRepository;
 
 
     @Autowired
+    private EmployeeSalaryRepository employeeSalaryRepository;
+
+    @Autowired
     private ReservationRepository reservationRepository;
 
     @Autowired
@@ -77,6 +80,24 @@ private CustomersRepository customersRepository;
             employeeList.add(employeeListDto);
         }
         return employeeList;
+    }
+    @GetMapping("employeeSalary/getList")
+    public List<EmployeeSalaryListDto> getEmployeeSalaryListDto(){
+        List<EmployeeSalary> employeeSalaries = employeeSalaryRepository.findAll();
+        List<EmployeeSalaryListDto> employeeSalaryListDtos = new ArrayList<>();
+        for(EmployeeSalary employeeSalary : employeeSalaries){
+            EmployeeSalaryListDto employeeSalaryListDto = new EmployeeSalaryListDto();
+            employeeSalaryListDto.setSalaryId(employeeSalary.getSalaryId());
+            employeeSalaryListDto.setName(employeeSalary.getEmployeeInfo().getName());
+            employeeSalaryListDto.setSalaryDate(employeeSalary.getSalaryDate());
+            employeeSalaryListDto.setSalaryAmount(employeeSalary.getSalaryAmount());
+            employeeSalaryListDto.setPaymentMode(employeeSalary.getPaymentMode());
+            employeeSalaryListDto.setChequeNumber(employeeSalary.getChequeNumber());
+            employeeSalaryListDto.setPaidBy(employeeSalary.getPaidBy());
+
+            employeeSalaryListDtos.add(employeeSalaryListDto);
+        }
+        return employeeSalaryListDtos;
     }
 
     @GetMapping("/customerDropdown/getList")
