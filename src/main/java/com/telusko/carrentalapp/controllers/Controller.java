@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -255,6 +256,31 @@ private CustomersRepository customersRepository;
         branches.setEmail(branchAddDto.getEmail());
         branchRepository.save(branches);
         return "Branch Added Successfully.";
+    }
+
+    @PostMapping("/employee/add")
+    public String addEmployee(@RequestBody EmployeeAddDto employeeAddDto){
+        Employee employee = new Employee();
+        employee.setName(employeeAddDto.getName());
+        employee.setProfession(employeeAddDto.getProfession());
+        employee.setPhoneNumber(employeeAddDto.getPhoneNumber());
+        employee.setAddress(employeeAddDto.getAddress());
+        employee.setBranchId(employeeAddDto.getBranchId());
+        employeeRepository.save(employee);
+        return "Employee Added Successfully";
+
+    }
+    @PostMapping("/employeeSalary/add")
+    public String addEmployeeSalary(@RequestBody EmployeeSalaryAdd employeeSalaryAdd){
+        EmployeeSalary employeeSalary = new EmployeeSalary();
+        employeeSalary.setEmployeeId(employeeSalaryAdd.getEmployeeId());
+        employeeSalary.setSalaryDate(employeeSalaryAdd.getSalaryDate());
+        employeeSalary.setSalaryAmount(employeeSalaryAdd.getSalaryAmount());
+        employeeSalary.setPaymentMode(employeeSalaryAdd.getPaymentMode());
+        employeeSalary.setChequeNumber(employeeSalaryAdd.getChequeNumber());
+        employeeSalary.setPaidBy(employeeSalaryAdd.getPaidBy());
+        employeeSalaryRepository.save(employeeSalary);
+        return "Employee Salary Added Successfully";
     }
 
 }
