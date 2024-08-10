@@ -127,6 +127,19 @@ private CustomersRepository customersRepository;
         return branchDropList;
     }
 
+    @GetMapping("/employeeDropdown/getList")
+    public List<EmployeeDropdownDto> getEmployeeDropdown(){
+        List<Employee> employees = employeeRepository.findAll();
+        List<EmployeeDropdownDto> employeeDropdownDtos = new ArrayList<>();
+        for(Employee employee : employees){
+            EmployeeDropdownDto employeeDropdownDto = new EmployeeDropdownDto();
+            employeeDropdownDto.setEmployeeId(employee.getEmployeeId());
+            employeeDropdownDto.setEmployeeName(employee.getName());
+            employeeDropdownDtos.add(employeeDropdownDto);
+        }
+        return employeeDropdownDtos;
+    }
+
     @GetMapping("/reservation/getList")
     public List<ReservationListDto> getReservationList(){
         List<Reservation> reservations = reservationRepository.findAll();
