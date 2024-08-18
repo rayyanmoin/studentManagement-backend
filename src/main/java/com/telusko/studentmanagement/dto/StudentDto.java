@@ -1,7 +1,7 @@
 package com.telusko.studentmanagement.dto;
 
 import java.util.List;
-
+// student dto
 public class StudentDto {
 
     private Long studentId;
