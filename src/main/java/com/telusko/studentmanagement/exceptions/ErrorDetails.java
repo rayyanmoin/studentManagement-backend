@@ -1,4 +1,4 @@
-package com.telusko.carrentalapp.exceptions;
+package com.telusko.studentmanagement.exceptions;
 
 import java.util.Date;
 

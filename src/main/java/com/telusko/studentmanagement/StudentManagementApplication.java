@@ -1,13 +1,13 @@
-package com.telusko.carrentalapp;
+package com.telusko.studentmanagement;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CarRentalappApplication {
+public class StudentManagementApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CarRentalappApplication.class, args);
+		SpringApplication.run(StudentManagementApplication.class, args);
 		System.out.println("Hello World!");
 	}
 
