@@ -11,6 +11,14 @@ public class StudentDto {
     private String address;
     private List<StudentCoursesDto> courses;
 
+    public List<StudentCoursesDto> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<StudentCoursesDto> courses) {
+        this.courses = courses;
+    }
+
     public String getStudentName() {
         return studentName;
     }

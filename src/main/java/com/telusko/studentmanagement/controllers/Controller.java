@@ -1,5 +1,6 @@
 package com.telusko.studentmanagement.controllers;
 import com.telusko.studentmanagement.dto.CourseDto;
+import com.telusko.studentmanagement.dto.StudentCoursesDto;
 import com.telusko.studentmanagement.dto.StudentDto;
 import com.telusko.studentmanagement.dto.TeacherDto;
 import com.telusko.studentmanagement.repositories.CourseRepository;
@@ -7,6 +8,7 @@ import com.telusko.studentmanagement.repositories.EnrollmentRepository;
 import com.telusko.studentmanagement.repositories.StudentRepository;
 import com.telusko.studentmanagement.repositories.TeacherRepository;
 import com.telusko.studentmanagement.studentManagementObjects.Course;
+import com.telusko.studentmanagement.studentManagementObjects.Enrollment;
 import com.telusko.studentmanagement.studentManagementObjects.Student;
 import com.telusko.studentmanagement.studentManagementObjects.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,13 +78,24 @@ public class Controller {
     public List<StudentDto> getStudentDto(){
         List<Student> students = studentRepository.findAll();
         List<StudentDto> studentDtos = new ArrayList<>();
-        for(Student student : students){
+        for(Student student : students) {
             StudentDto studentDto = new StudentDto();
             studentDto.setStudentId(student.getStudentId());
             studentDto.setStudentName(student.getStudentName());
             studentDto.setEmail(student.getEmail());
             studentDto.setPhoneNumber(student.getPhoneNumber());
             studentDto.setAddress(student.getAddress());
+
+            List<StudentCoursesDto> courses = new ArrayList<>();
+            List<Enrollment> enrollmentList = enrollmentRepository.findByStudentId(student.getStudentId());
+
+            for (Enrollment enrollment :enrollmentList) {
+                StudentCoursesDto courseDto = new StudentCoursesDto();
+                courseDto.setCourseId(enrollment.getCourseId());
+                courseDto.setCourseName(enrollment.getCourseInfo().getCourseName());
+                courses.add(courseDto);
+            }
+            studentDto.setCourses(courses);
             studentDtos.add(studentDto);
         }
         return studentDtos;
