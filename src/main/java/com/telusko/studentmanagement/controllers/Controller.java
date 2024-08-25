@@ -1,8 +1,5 @@
 package com.telusko.studentmanagement.controllers;
-import com.telusko.studentmanagement.dto.CourseDto;
-import com.telusko.studentmanagement.dto.StudentCoursesDto;
-import com.telusko.studentmanagement.dto.StudentDto;
-import com.telusko.studentmanagement.dto.TeacherDto;
+import com.telusko.studentmanagement.dto.*;
 import com.telusko.studentmanagement.repositories.CourseRepository;
 import com.telusko.studentmanagement.repositories.EnrollmentRepository;
 import com.telusko.studentmanagement.repositories.StudentRepository;
@@ -36,6 +33,52 @@ public class Controller {
     private EnrollmentRepository enrollmentRepository;
 
 
+    @PostMapping("/teacher/add")
+    public String addTeacher(@RequestBody TeacherAddDto teacherAddDto){
+        Teacher teacher = new Teacher();
+        teacher.setPhoneNumber(teacherAddDto.getPhoneNumber());
+        teacher.setExperience(teacherAddDto.getPhoneNumber());
+        teacher.setTeacherName(teacherAddDto.getTeacherName());
+        teacher.setQualification(teacherAddDto.getQualification());
+        teacher.setCnic(teacherAddDto.getCnic());
+        teacher.setJoinedDate(teacherAddDto.getJoinedDate());
+        teacher.setSalaryAmount(teacherAddDto.getSalaryAmount());
+        teacherRepository.save(teacher);
+        return "Teacher Added Successfully";
+    }
+
+    @PostMapping("/course/add")
+    public String addCourse(@RequestBody CourseAddDto courseAddDto){
+        Course course = new Course();
+        course.setCourseName(courseAddDto.getCourseName());
+        course.setAmount(courseAddDto.getAmount());
+        course.setTeacherId(courseAddDto.getTeacherId());
+
+        Course savedcourse = courseRepository.save(course);
+        return "Course Added Successfully";
+    }
+
+    @PostMapping("/student/add")
+    public String addStudent(@RequestBody StudentAddDto studentAddDto){
+        Student student = new Student();
+
+        student.setStudentName(studentAddDto.getStudentName());
+        student.setEmail(studentAddDto.getEmail());
+        student.setPhoneNumber(studentAddDto.getPhoneNumber());
+        student.setAddress(studentAddDto.getAddress());
+
+        Student savedStudent = studentRepository.save(student);
+        for(EnrollmentDto enrollmentDto: studentAddDto.getCourses()) {
+            Enrollment enrollment = new Enrollment();
+            enrollment.setStudentId(savedStudent.getStudentId());
+            enrollment.setCourseId(enrollmentDto.getCourseId());
+            enrollment.setEnrollmentDate(enrollmentDto.getEnrollmentDate());
+
+            enrollmentRepository.save(enrollment);
+
+        }
+        return "Student and courses against student Added Successfully";
+    }
 
     @GetMapping("/course/getList")
     public List<CourseDto> getCourseDto(){
