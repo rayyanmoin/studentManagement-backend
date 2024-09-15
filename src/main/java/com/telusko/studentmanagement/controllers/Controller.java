@@ -37,7 +37,7 @@ public class Controller {
     public String addTeacher(@RequestBody TeacherAddDto teacherAddDto){
         Teacher teacher = new Teacher();
         teacher.setPhoneNumber(teacherAddDto.getPhoneNumber());
-        teacher.setExperience(teacherAddDto.getPhoneNumber());
+        teacher.setExperience(teacherAddDto.getExperience());
         teacher.setTeacherName(teacherAddDto.getTeacherName());
         teacher.setQualification(teacherAddDto.getQualification());
         teacher.setCnic(teacherAddDto.getCnic());
@@ -116,6 +116,33 @@ public class Controller {
         return teacherDtos;
     }
 
+    @GetMapping("/teacher/getDropList")
+    public List<TeacherDropDto> getTeacherDropDto(){
+        List<Teacher>  teachers = teacherRepository.findAll();
+        List<TeacherDropDto> teacherDropDtos = new ArrayList<>();
+        for (Teacher teacher : teachers){
+            TeacherDropDto teacherDto = new TeacherDropDto();
+            teacherDto.setTeacherId(teacher.getTeacherId());
+            teacherDto.setTeacherName(teacher.getTeacherName());
+
+            teacherDropDtos.add(teacherDto);
+        }
+        return teacherDropDtos;
+    }
+
+    @GetMapping("/course/getOnlyCourseList")
+    public List<OnlyCourseDto> getOnlyCourseDto() {
+        List<Course> courses = courseRepository.findAll();
+        List<OnlyCourseDto> onlyCourseDtoList = new ArrayList<>();
+        for (Course course : courses) {
+            OnlyCourseDto onlyCourseDto = new OnlyCourseDto();
+            onlyCourseDto.setCourseId(course.getCourseId());
+            onlyCourseDto.setCourseName(course.getCourseName());
+            onlyCourseDtoList.add(onlyCourseDto);
+        }
+        return onlyCourseDtoList;
+
+    }
 
     @GetMapping("/student/getList")
     public List<StudentDto> getStudentDto(){
